@@ -25,7 +25,7 @@ export default function App() {
         <div className="flex items-center gap-3 text-xl font-bold font-['Outfit']">
           <LayoutDashboard className="text-primary" />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
-            JSON Viewer Pro
+            JSON Viewer
           </span>
         </div>
         {data && (

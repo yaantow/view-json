@@ -1,6 +1,6 @@
-# JSON Viewer Pro
+# JSON Viewer
 
-JSON Viewer Pro is a powerful, local-first web application for viewing, analyzing, and transforming JSON data. Built with React, TypeScript, and Vite, it features a modern, responsive UI powered by Tailwind CSS and Shadcn UI components.
+JSON Viewer is a powerful, local-first web application for viewing, analyzing, and transforming JSON data. Built with React, TypeScript, and Vite, it features a modern, responsive UI powered by Tailwind CSS and Shadcn UI components.
 
 ## Features
 
