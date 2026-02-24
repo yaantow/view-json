@@ -33,6 +33,7 @@ export default function FileUploader({ onDataLoaded }: FileUploaderProps) {
             }
 
             setError(null);
+            localStorage.setItem('json_viewer_data', JSON.stringify(flattenedData));
             onDataLoaded(flattenedData);
         } catch (err) {
             setError('Error parsing JSON. Check console for details.');

@@ -1,15 +1,36 @@
 import { useState } from 'react';
-import { LayoutDashboard, Table as TableIcon, RefreshCw } from 'lucide-react';
+import { LayoutDashboard, Table as TableIcon, RefreshCw, Map as MapIcon } from 'lucide-react';
 import FileUploader from './components/FileUploader';
 import DataTableComponent from './components/DataTable';
 import PivotView from './components/PivotView';
 import TransformDialog from './components/TransformDialog';
+import MapView from './components/MapView';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export default function App() {
-  const [data, setData] = useState<any[] | null>(null);
+  const [data, setData] = useState<any[] | null>(() => {
+    const saved = localStorage.getItem('json_viewer_data');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Failed to parse saved data", e);
+      }
+    }
+    return null;
+  });
+
+  const [mapboxToken, setMapboxToken] = useState<string | null>(() => {
+    return localStorage.getItem('mapbox_token') || null;
+  });
+  const [tempToken, setTempToken] = useState('');
+
+  const hasCoordinates = data?.some(
+    (item) => item.latitude && item.longitude && !isNaN(Number(item.latitude)) && !isNaN(Number(item.longitude))
+  );
 
   const handleDataLoaded = (parsedData: any[]) => {
     setData(parsedData);
@@ -17,6 +38,20 @@ export default function App() {
 
   const handleReset = () => {
     setData(null);
+  };
+
+  const handleClearLocalData = () => {
+    localStorage.removeItem('json_viewer_data');
+    localStorage.removeItem('mapbox_token');
+    setData(null);
+    setMapboxToken(null);
+  };
+
+  const handleSaveToken = () => {
+    if (tempToken.trim()) {
+      localStorage.setItem('mapbox_token', tempToken.trim());
+      setMapboxToken(tempToken.trim());
+    }
   };
 
   return (
@@ -33,6 +68,9 @@ export default function App() {
             <TransformDialog data={data} onTransformData={setData} />
             <Button variant="outline" onClick={handleReset} size="sm" className="gap-2">
               <RefreshCw size={14} /> Load New File
+            </Button>
+            <Button variant="destructive" onClick={handleClearLocalData} size="sm" className="gap-2">
+              Clear Local Data
             </Button>
           </div>
         )}
@@ -53,6 +91,11 @@ export default function App() {
                 <TabsTrigger value="pivot" className="gap-2 data-[state=active]:bg-background data-[state=active]:text-primary">
                   <LayoutDashboard size={14} />Pivot Table
                 </TabsTrigger>
+                {hasCoordinates && (
+                  <TabsTrigger value="map" className="gap-2 data-[state=active]:bg-background data-[state=active]:text-primary">
+                    <MapIcon size={14} />Map View
+                  </TabsTrigger>
+                )}
               </TabsList>
             </div>
 
@@ -63,6 +106,36 @@ export default function App() {
             <TabsContent value="pivot" className="flex-1 min-h-0 m-0 data-[state=active]:block overflow-auto relative">
               <PivotView data={data} />
             </TabsContent>
+
+            {hasCoordinates && (
+              <TabsContent value="map" className="flex-1 min-h-0 m-0 data-[state=active]:block relative h-full bg-muted/10">
+                {mapboxToken ? (
+                  <MapView data={data} token={mapboxToken} />
+                ) : (
+                  <div className="flex items-center justify-center p-8 h-full">
+                    <div className="bg-card p-8 rounded-xl border shadow-sm max-w-md w-full text-center">
+                      <MapIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">Mapbox Access Token Required</h3>
+                      <p className="text-sm text-muted-foreground mb-6">
+                        To protect your quota, please provide your own Mapbox public access token. It will be securely saved in your browser.
+                      </p>
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="pk.ey..."
+                          value={tempToken}
+                          onChange={(e) => setTempToken(e.target.value)}
+                          onKeyDown={(e) => e.key === 'Enter' && handleSaveToken()}
+                        />
+                        <Button onClick={handleSaveToken}>Save</Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-4">
+                        Don't have one? Get a free token at <a href="https://mapbox.com" target="_blank" rel="noreferrer" className="text-primary hover:underline">mapbox.com</a>
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </TabsContent>
+            )}
           </Tabs>
         </main>
       )}
