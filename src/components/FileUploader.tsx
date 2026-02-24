@@ -33,10 +33,29 @@ export default function FileUploader({ onDataLoaded }: FileUploaderProps) {
             }
 
             setError(null);
-            localStorage.setItem('json_viewer_data', JSON.stringify(flattenedData));
+
+            try {
+                localStorage.setItem('json_viewer_data', JSON.stringify(flattenedData));
+            } catch (storageErr) {
+                console.warn("Could not save to localStorage (likely exceeded quota), but data is loaded.", storageErr);
+            }
+
             onDataLoaded(flattenedData);
-        } catch (err) {
-            setError('Error parsing JSON. Check console for details.');
+        } catch (err: any) {
+            let errorMessage = 'Error parsing JSON. Check console for details.';
+            if (err instanceof Error) {
+                errorMessage = `Error parsing JSON: ${err.message}`;
+
+                // Try to extract line number from position (e.g., Chrome/Node "position 123")
+                const match = err.message.match(/position (\d+)/);
+                if (match) {
+                    const position = parseInt(match[1], 10);
+                    const lines = content.slice(0, position).split('\n');
+                    const lineNumber = lines.length;
+                    errorMessage = `Error parsing JSON: ${err.message} (Around Line ${lineNumber})`;
+                }
+            }
+            setError(errorMessage);
             console.error(err);
         }
     };
