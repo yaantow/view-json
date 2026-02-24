@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LayoutDashboard, Table as TableIcon, RefreshCw, Map as MapIcon } from 'lucide-react';
+import { get, set, del } from 'idb-keyval';
 import FileUploader from './components/FileUploader';
 import DataTableComponent from './components/DataTable';
 import PivotView from './components/PivotView';
@@ -11,17 +12,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export default function App() {
-  const [data, setData] = useState<any[] | null>(() => {
-    const saved = localStorage.getItem('json_viewer_data');
-    if (saved) {
+  const [data, setData] = useState<any[] | null>(null);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadData() {
       try {
-        return JSON.parse(saved);
+        const saved = await get('json_viewer_data');
+        if (saved) {
+          setData(saved);
+        }
       } catch (e) {
-        console.error("Failed to parse saved data", e);
+        console.error("Failed to load saved data from IndexedDB", e);
+      } finally {
+        setIsDataLoaded(true);
       }
     }
-    return null;
-  });
+    loadData();
+  }, []);
 
   const [mapboxToken, setMapboxToken] = useState<string | null>(() => {
     return localStorage.getItem('mapbox_token') || null;
@@ -32,16 +40,25 @@ export default function App() {
     (item) => item.latitude && item.longitude && !isNaN(Number(item.latitude)) && !isNaN(Number(item.longitude))
   );
 
-  const handleDataLoaded = (parsedData: any[]) => {
+  const handleDataLoaded = async (parsedData: any[]) => {
     setData(parsedData);
+    try {
+      await set('json_viewer_data', parsedData);
+    } catch (e) {
+      console.warn("Could not save to IndexedDB", e);
+    }
   };
 
   const handleReset = () => {
     setData(null);
   };
 
-  const handleClearLocalData = () => {
-    localStorage.removeItem('json_viewer_data');
+  const handleClearLocalData = async () => {
+    try {
+      await del('json_viewer_data');
+    } catch (e) {
+      console.error("Failed to clear IndexedDB", e);
+    }
     localStorage.removeItem('mapbox_token');
     setData(null);
     setMapboxToken(null);
@@ -53,6 +70,17 @@ export default function App() {
       setMapboxToken(tempToken.trim());
     }
   };
+
+  if (!isDataLoaded) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-background text-muted-foreground">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw className="animate-spin w-8 h-8 text-primary" />
+          <p className="font-medium animate-pulse">Loading saved data...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background">

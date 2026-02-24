@@ -34,12 +34,8 @@ export default function FileUploader({ onDataLoaded }: FileUploaderProps) {
 
             setError(null);
 
-            try {
-                localStorage.setItem('json_viewer_data', JSON.stringify(flattenedData));
-            } catch (storageErr) {
-                console.warn("Could not save to localStorage (likely exceeded quota), but data is loaded.", storageErr);
-            }
-
+            // Note: Storage persistence is now handled by the parent App component 
+            // via IndexedDB when onDataLoaded is called.
             onDataLoaded(flattenedData);
         } catch (err: any) {
             let errorMessage = 'Error parsing JSON. Check console for details.';

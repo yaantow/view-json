@@ -159,9 +159,10 @@ export default function MapView({ data, token }: MapViewProps) {
                 style={{ width: '100%', height: '100%' }}
                 interactiveLayerIds={['clusters', 'unclustered-point']}
                 onClick={onClick}
-                cursor={mapRef.current?.getLayer('clusters') ? 'pointer' : 'grab'}
+                cursor={'auto'}
             >
                 <NavigationControl position="top-right" />
+
 
                 <Source
                     id="data-points"
