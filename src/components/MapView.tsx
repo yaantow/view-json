@@ -68,6 +68,8 @@ const unclusteredPointLayer: CircleLayer = {
     }
 };
 
+import GeocoderControl from './GeocoderControl';
+
 export default function MapView({ data, token }: MapViewProps) {
     const mapRef = useRef<MapRef>(null);
 
@@ -162,7 +164,7 @@ export default function MapView({ data, token }: MapViewProps) {
                 cursor={'auto'}
             >
                 <NavigationControl position="top-right" />
-
+                <GeocoderControl mapboxAccessToken={token} position="top-left" />
 
                 <Source
                     id="data-points"
