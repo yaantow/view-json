@@ -1,0 +1,190 @@
+FCODE,Atoll,islandName,longitude_dd,latitude_dd,Area_ha,category
+LD0004,Alifu Alifu,Maalhos,72.71943611,3.986338889,32.107555,Residential Island
+LD0008,Faafu,Feeali,73.00198611,3.269983333,17.51142,Residential Island
+LD0009,Alifu Dhaalu,Omadhoo,72.96248611,3.791586111,22.58292,Residential Island
+LD0016,Shaviyani,Maaun'goodhoo,73.28383889,6.036741667,28.901022,Residential Island
+LD0020,Lhaviyani,Naifaru,73.36521667,5.444458333,57.388616,Residential Island
+LD0044,Baa,Fulhadhoo,72.93298333,4.884883333,28.882425,Residential Island
+LD0048,Haa Dhaalu,Kulhudhuffushi,73.06911944,6.623258333,247.218138,Residential Island
+LD0059,Baa,Kudarikilu,73.07088333,5.300394444,18.646882,Residential Island
+LD0061,Meemu,Kolhufushi,73.42454722,2.776880556,64.00644,Residential Island
+LD0066,Dhaalu,Ban'didhoo,72.99036944,2.936597222,24.778278,Residential Island
+LD0069,Kaafu,Maafushi,73.48966944,3.940986111,41.122774,Residential Island
+LD0075,Vaavu,Felidhoo,73.54725,3.471933333,15.585969,Residential Island
+LD0081,Seenu,Maradhoofeydhoo,73.12585833,-0.673661111,34.04871,Residential Island
+LD0082,Thaa,Thimarafushi,73.14825278,2.208911111,99.199162,Residential Island
+LD0085,Faafu,Magoodhoo,72.96388333,3.0789,24.372081,Residential Island
+LD0102,Laamu,Mundoo,73.53416944,2.012502778,23.98183,Residential Island
+LD0132,Alifu Alifu,Mathiveri,72.74625556,4.191863889,22.806202,Residential Island
+LD0152,Laamu,Gan,73.54216667,1.918391667,603.83504,Residential Island
+LD0158,Alifu Dhaalu,Maamigili,72.83490556,3.473994444,218.673254,Residential Island
+LD0168,Alifu Dhaalu,Mandhoo,72.70956389,3.697794444,38.117448,Residential Island
+LD0178,Raa,Rasgetheemu,73.00295556,5.807683333,38.567274,Residential Island
+LD0179,Meemu,Dhiggaru,73.56530833,3.112002778,14.313349,Residential Island
+LD0180,Raa,Maakurathu,73.044025,5.60625,52.303872,Residential Island
+LD0181,Gaafu Dhaalu,Nadellaa,73.04064722,0.293394444,45.298219,Residential Island
+LD0182,Vaavu,Fulidhoo,73.41568333,3.680527778,11.782273,Residential Island
+LD0191,Noonu,Landhoo,73.46618056,5.881758333,85.720585,Residential Island
+LD0194,Raa,Kinolhas,73.02930833,5.448480556,55.375921,Residential Island
+LD0195,Gaafu Dhaalu,Vaadhoo,73.27363333,0.227369444,192.456249,Residential Island
+LD0199,Haa Dhaalu,Hirimaradhoo,73.02412778,6.724794444,45.681428,Residential Island
+LD0200,Thaa,Dhiyamigili,73.33684167,2.339680556,29.094523,Residential Island
+LD0203,Noonu,Maalhendhoo,73.45611667,5.9022,46.156213,Residential Island
+LD0204,Baa,Eydhafushi,73.07064167,5.1026,55.551606,Residential Island
+LD0205,Thaa,Vilufushi,73.30855278,2.503258333,59.690612,Residential Island
+LD0209,Dhaalu,Maaen'boodhoo,72.96353889,2.695763889,23.831984,Residential Island
+LD0232,Haa Alifu,Vashafaru,73.16080556,6.897463889,34.877338,Residential Island
+LD0235,Haa Dhaalu,Hanimaadhoo,73.17324444,6.756430556,298.290724,Residential Island
+LD0246,Haa Alifu,Hoarafushi,72.89492222,6.983055556,67.596735,Residential Island
+LD0247,Gaafu Alifu,Vilin'gili,73.43536667,0.756508333,110.420047,Residential Island
+LD0254,Thaa,Buruni,73.10702778,2.558969444,33.800054,Residential Island
+LD0257,Alifu Alifu,Rasdhoo,72.99185,4.263063889,21.570766,Residential Island
+LD0260,Vaavu,Keyodhoo,73.54998889,3.462108333,11.698096,Residential Island
+LD0265,Laamu,Hithadhoo,73.38849167,1.797066667,104.483027,Residential Island
+LD0268,MLE,Vilin'gili,73.485225,4.173247222,32.519268,Residential Island
+LD0272,Seenu,Meedhoo,73.23104167,-0.584308333,186.47917,Residential Island
+LD0273,Alifu Dhaalu,Dhan'gethi,72.95585,3.607661111,29.861878,Residential Island
+LD0281,Raa,An'golhitheemu,73.00663611,5.792727778,39.190573,Residential Island
+LD0287,Alifu Alifu,Feridhoo,72.72562778,4.051063889,44.592242,Residential Island
+LD0288,Seenu,Maradhoo,73.11883889,-0.665547222,59.74462,Residential Island
+LD0299,Seenu,Hulhudhoo,73.22763056,-0.595905556,134.099001,Residential Island
+LD0323,Laamu,Kunahandhoo,73.36816944,1.782925,91.557488,Residential Island
+LD0332,Noonu,Fodhdhoo,73.21599444,5.743755556,25.749101,Residential Island
+LD0334,Dhaalu,Rin'budhoo,72.89541111,2.924483333,17.139893,Residential Island
+LD0340,Lhaviyani,Hinnavaru,73.41135,5.492583333,53.217771,Residential Island
+LD0348,Baa,Dhonfan,73.12285,5.187852778,17.054593,Residential Island
+LD0350,Thaa,Hirilandhoo,72.93169722,2.271094444,29.855808,Residential Island
+LD0363,Baa,Kihaadhoo,73.12505556,5.215063889,30.325444,Residential Island
+LD0391,Noonu,Kudafari,73.40020556,5.882891667,28.696188,Residential Island
+LD0392,Noonu,Manadhoo,73.410775,5.765719444,109.058472,Residential Island
+LD0406,Haa Dhaalu,Vaikaradhoo,72.95322222,6.549697222,105.410363,Residential Island
+LD0412,Gaafu Alifu,Dhevvadhoo,73.24216389,0.557072222,23.059414,Residential Island
+LD0416,Haa Dhaalu,Nolhivaranfaru,73.12005,6.697325,170.299318,Residential Island
+LD0420,Vaavu,Rakeedhoo,73.46984167,3.314891667,6.353416,Residential Island
+LD0422,Thaa,Kin'bidhoo,73.06612778,2.168438889,37.879061,Residential Island
+LD0423,Raa,Rasmaadhoo,73.04386667,5.563094444,26.270077,Residential Island
+LD0427,Thaa,Gaadhiffushi,73.21276389,2.252527778,14.030763,Residential Island
+LD0435,Gaafu Alifu,Kon'dey,73.54878889,0.498752778,118.435906,Residential Island
+LD0441,Haa Dhaalu,Finey,73.05328333,6.745902778,115.192371,Residential Island
+LD0442,MLE,Malé,73.50949167,4.174222222,205.535632,Residential Island
+LD0446,Meemu,Muli,73.58120556,2.917955556,76.537296,Residential Island
+LD0455,Noonu,Holhudhoo,73.24953889,5.751247222,49.663831,Residential Island
+LD0459,Alifu Dhaalu,Dhidhdhoo,72.87785278,3.484130556,20.1073,Residential Island
+LD0470,Gaafu Dhaalu,Fiyoaree,73.13649722,0.221622222,80.260897,Residential Island
+LD0474,Alifu Alifu,Bodufolhudhoo,72.77339444,4.185630556,12.352617,Residential Island
+LD0484,Laamu,Maamendhoo,73.38948333,1.817447222,22.190216,Residential Island
+LD0488,Haa Alifu,Uligan,72.92746944,7.081877778,104.47444,Residential Island
+LD0497,Noonu,Velidhoo,73.27338333,5.664638889,61.230994,Residential Island
+LD0499,Dhaalu,Kudahuvadhoo,72.89024722,2.669627778,164.211449,Residential Island
+LD0500,Noonu,Lhohi,73.37767222,5.816177778,39.882713,Residential Island
+LD0501,Alifu Alifu,Thoddoo,72.95963333,4.437216667,160.877043,Residential Island
+LD0504,Thaa,Kan'doodhoo,72.91665278,2.320944444,81.193395,Residential Island
+LD0507,Haa Alifu,Utheemu,73.11270278,6.834830556,48.968478,Residential Island
+LD0510,Lhaviyani,Kurendhoo,73.46367778,5.333847222,22.441391,Residential Island
+LD0513,Alifu Dhaalu,Fenfushi,72.78372778,3.489405556,25.393908,Residential Island
+LD0517,Lhaviyani,Olhuvelifushi,73.60676111,5.278508333,28.363886,Residential Island
+LD0518,Baa,Kamadhoo,73.13691111,5.281930556,21.033769,Residential Island
+LD0520,Baa,Fehendhoo,72.96960278,4.881569444,24.831364,Residential Island
+LD0525,Shaviyani,Milandhoo,73.24453611,6.286047222,131.043921,Residential Island
+LD0531,Meemu,Mulah,73.584625,2.946652778,67.686239,Residential Island
+LD0541,Haa Dhaalu,Kumundhoo,73.052325,6.572088889,186.798006,Residential Island
+LD0545,Alifu Dhaalu,Mahibadhoo,72.96903611,3.757222222,23.351844,Residential Island
+LD0551,Shaviyani,Narudhoo,73.21811667,6.264333333,41.967426,Residential Island
+LD0557,Gaafu Dhaalu,Madaveli,72.99864722,0.458591667,46.595092,Residential Island
+LD0560,Noonu,Maafaru,73.47548889,5.823886111,131.609656,Residential Island
+LD0563,Haa Alifu,Kelaa,73.21615278,6.954772222,199.113915,Residential Island
+LD0564,Raa,Innamaadhoo,73.04453611,5.549447222,36.598738,Residential Island
+LD0568,Haa Alifu,Dhidhdhoo,73.110675,6.891802778,94.56152,Residential Island
+LD0572,Gaafu Dhaalu,Faresmaathodaa,73.18463056,0.201886111,48.394581,Residential Island
+LD0573,Raa,Maduvvari,72.89590833,5.486191667,22.384479,Residential Island
+LD0577,Kaafu,Gulhi,73.50903889,3.990683333,11.152936,Residential Island
+LD0588,Raa,Alifushi,72.95338333,5.967319444,59.550913,Residential Island
+LD0591,MLE,Hulhumalé,73.542925,4.223113889,413.579526,Residential Island
+LD0600,Raa,Hulhudhuffaaru,73.01235833,5.764997222,59.831781,Residential Island
+LD0605,Raa,Meedhoo,72.95503333,5.458180556,35.696233,Residential Island
+LD0606,Faafu,Bileiydhoo,72.98413056,3.11835,31.300563,Residential Island
+LD0609,Raa,Vaadhoo,72.99144444,5.856713889,37.536542,Residential Island
+LD0627,Thaa,Madifushi,73.35499722,2.356338889,53.135262,Residential Island
+LD0630,Gaafu Dhaalu,Rathafandhoo,73.10459167,0.252652778,40.705974,Residential Island
+LD0637,Baa,Maalhos,73.10788611,5.134611111,25.370574,Residential Island
+LD0646,Shaviyani,Foakaidhoo,73.14933056,6.326647222,66.569125,Residential Island
+LD0658,Haa Dhaalu,Nolhivaran,73.08225833,6.662330556,202.233733,Residential Island
+LD0662,Dhaalu,Hulhudheli,72.84633889,2.858469444,21.350818,Residential Island
+LD0665,Kaafu,Kaashidhoo,73.46118889,4.955725,278.72849,Residential Island
+LD0668,Baa,Kendhoo,73.01016667,5.275380556,18.738072,Residential Island
+LD0677,Baa,Thulhaadhoo,72.84117778,5.021794444,45.178664,Residential Island
+LD0683,Kaafu,Huraa,73.60175,4.333408333,51.957324,Residential Island
+LD0686,Haa Dhaalu,Neykurendhoo,72.97972222,6.542972222,168.436742,Residential Island
+LD0694,Thaa,Veymandoo,73.0951,2.186919444,44.296727,Residential Island
+LD0695,Haa Alifu,Maarandhoo,72.98419722,6.852627778,43.686637,Residential Island
+LD0698,Haa Dhaalu,Nellaidhoo,72.9469,6.714911111,31.775847,Residential Island
+LD0699,Haa Dhaalu,Makunudhoo,72.70509444,6.409583333,79.253074,Residential Island
+LD0701,Haa Alifu,Muraidhoo,73.16727222,6.837961111,46.535629,Residential Island
+LD0710,Haa Dhaalu,Naivaadhoo,72.93499167,6.746861111,30.319731,Residential Island
+LD0717,Gaafu Dhaalu,Thinadhoo,72.99738889,0.532486111,183.618349,Residential Island
+LD0726,Gnaviyani,Fuvahmulah,73.42474444,-0.2957,491.701281,Residential Island
+LD0738,Kaafu,Guraidhoo,73.46806111,3.900797222,22.229651,Residential Island
+LD0743,Gaafu Alifu,Kolamaafushi,73.18438056,0.837794444,35.06387,Residential Island
+LD0745,Kaafu,Thulusdhoo,73.64804444,4.372975,76.158413,Residential Island
+LD0766,Gaafu Alifu,Dhaandhoo,73.46125556,0.620922222,31.341337,Residential Island
+LD0771,Alifu Dhaalu,Kun'burudhoo,72.92521944,3.775583333,6.439276,Residential Island
+LD0783,Thaa,Omadhoo,73.02355556,2.167697222,36.676827,Residential Island
+LD0786,Meemu,Raiymandhoo,73.639075,3.089758333,28.109649,Residential Island
+LD0790,Raa,Dhuvaafaru,73.04159444,5.628719444,53.789589,Residential Island
+LD0793,Meemu,Naalaafushi,73.57738611,2.895116667,12.823994,Residential Island
+LD0836,Shaviyani,Goidhoo,72.92995278,6.430080556,98.755034,Residential Island
+LD0844,Baa,Dharavandhoo,73.131025,5.157288889,66.417245,Residential Island
+LD0851,Gaafu Dhaalu,Hoan'dehdhoo,73.00361389,0.444763889,110.182464,Residential Island
+LD0852,Haa Dhaalu,Kurin'bi,72.99668611,6.665575,40.193617,Residential Island
+LD0856,Gaafu Alifu,Kan'duhulhudhoo,73.53964167,0.351147222,32.102599,Residential Island
+LD0859,Thaa,Vandhoo,72.94192778,2.291680556,25.705228,Residential Island
+LD0863,Shaviyani,Funadhoo,73.289675,6.152452778,120.309356,Residential Island
+LD0866,Noonu,Ken'dhikulhudhoo,73.41586389,5.952636111,205.474734,Residential Island
+LD0873,Kaafu,Gaafaru,73.49974167,4.736055556,19.212245,Residential Island
+LD0874,Alifu Alifu,Himandhoo,72.74404722,3.920902778,20.738248,Residential Island
+LD0887,Gaafu Dhaalu,Gadhdhoo,73.45762222,0.290063889,58.266664,Residential Island
+LD0894,Kaafu,Dhiffushi,73.71419167,4.441725,26.708954,Residential Island
+LD0901,Haa Alifu,Molhadhoo,72.99809167,7.012297222,116.598633,Residential Island
+LD0907,Noonu,Magoodhoo,73.36247778,5.776472222,36.34006,Residential Island
+LD0908,Haa Alifu,Ihavandhoo,72.92620556,6.953047222,61.288543,Residential Island
+LD0915,Haa Alifu,Thuraakunu,72.89930556,7.104313889,25.64951,Residential Island
+LD0916,Alifu Alifu,Ukulhas,72.86425556,4.215058333,23.478809,Residential Island
+LD0924,Raa,Fainu,73.03458333,5.46345,60.855404,Residential Island
+LD0931,Baa,Goidhoo,72.99889722,4.873077778,160.76877,Residential Island
+LD0938,Laamu,Maavah,73.24349444,1.88565,39.58831,Residential Island
+LD0947,Seenu,Feydhoo,73.13441944,-0.683144444,121.540017,Residential Island
+LD0962,Noonu,Hen'badhoo,73.39298333,5.967555556,13.596253,Residential Island
+LD0970,Faafu,Dharan'boodhoo,72.92598611,3.062872222,39.719713,Residential Island
+LD0978,Shaviyani,Lhaimagu,73.25139722,6.164072222,43.379582,Residential Island
+LD0984,Haa Alifu,Thakandhoo,72.99553056,6.844011111,40.507757,Residential Island
+LD0985,Shaviyani,Noomaraa,73.06909722,6.434219444,38.480473,Residential Island
+LD0987,Haa Alifu,Baarah,73.20908056,6.816402778,244.872058,Residential Island
+LD0993,Haa Alifu,Filladhoo,73.22805278,6.874902778,260.548037,Residential Island
+LD1000,Baa,Hithaadhoo,72.922975,5.007197222,31.306807,Residential Island
+LD1004,Seenu,Hithadhoo,73.09000556,-0.608511111,547.700948,Residential Island
+LD1023,Alifu Dhaalu,Hangnaameedhoo,72.95526389,3.849238889,20.094361,Residential Island
+LD1038,Laamu,Fonadhoo,73.50051389,1.833058333,170.274762,Residential Island
+LD1047,Alifu Dhaalu,Dhigurah,72.92580556,3.5303,54.503273,Residential Island
+LD1049,Laamu,Dhan'bidhoo,73.54503611,2.09465,53.478711,Residential Island
+LD1050,Dhaalu,Meedhoo,73.00740556,2.998105556,32.261606,Residential Island
+LD1053,Laamu,Maabaidhoo,73.53271389,2.025777778,52.379258,Residential Island
+LD1058,Shaviyani,Komandoo,73.05430278,6.054144444,21.776442,Residential Island
+LD1064,Shaviyani,Bileiyfahi,72.97486111,6.337788889,65.308943,Residential Island
+LD1068,Noonu,Miladhoo,73.36259167,5.790466667,22.001065,Residential Island
+LD1070,Laamu,Isdhoo,73.57785833,2.123802778,145.854975,Residential Island
+LD1079,Vaavu,Thinadhoo,73.53842222,3.487658333,12.359498,Residential Island
+LD1085,Gaafu Alifu,Maamendhoo,73.43916667,0.714213889,51.55565,Residential Island
+LD1091,Gaafu Alifu,Nilandhoo,73.44646111,0.636244444,60.837266,Residential Island
+LD1092,Shaviyani,Kan'ditheemu,72.91646111,6.440347222,87.650206,Residential Island
+LD1100,Shaviyani,Feydhoo,73.0488,6.360652778,88.619678,Residential Island
+LD1121,Raa,In'guraidhoo,73.0368,5.477063889,46.385722,Residential Island
+LD1129,Kaafu,Hinmafushi,73.57111944,4.308019444,65.369743,Residential Island
+LD1144,Shaviyani,Maroshi,73.06125833,6.209575,30.317748,Residential Island
+LD1149,Shaviyani,Feevah,73.20924167,6.348927778,85.942181,Residential Island
+LD1158,Faafu,Nilandhoo,72.88899167,3.056927778,74.129242,Residential Island
+LD1163,Thaa,Guraidhoo,73.31756111,2.322844444,75.845512,Residential Island
+LD1166,Meemu,Maduvvari,73.57311111,3.105041667,12.003802,Residential Island
+LD1167,Meemu,Veyvah,73.59998056,2.956216667,41.669537,Residential Island
+LD1175,Raa,Un'goofaaru,73.03010556,5.668216667,35.575416,Residential Island
+LD1182,Gaafu Alifu,Gemanafushi,73.56829167,0.442663889,56.398098,Residential Island
+LD1473,Laamu,Kalaidhoo,73.56015,2.114925,211.691257,Residential Island
