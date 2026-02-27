@@ -18,28 +18,40 @@ console.log(`Processing ${geojson.features.length} features...`);
 const boxesMap = {};
 
 let i = 0;
+let skipped = 0;
 for (const feature of geojson.features) {
     if (!feature.geometry) continue;
 
-    const islandName = feature.properties?.islandName || 'Unknown';
+    const islandName = feature.properties?.islandName || '';
+    const atoll = feature.properties?.atoll || '';
+
+    // Skip features with no island name
+    if (!islandName) {
+        skipped++;
+        continue;
+    }
+
+    // Use composite key "Atoll::IslandName" to avoid collisions
+    // e.g. "Kaafu::Funadhoo" vs "Shaviyani::Funadhoo"
+    const key = atoll ? `${atoll}::${islandName}` : islandName;
 
     // Turf bbox calculates [minX, minY, maxX, maxY]
     const box = bbox.default ? bbox.default(feature) : bbox(feature);
 
-    boxesMap[islandName] = {
+    boxesMap[key] = {
         minX: box[0],
         minY: box[1],
         maxX: box[2],
         maxY: box[3],
-        // Save the properties we actually care about so we don't have to keep a mapping to Island.json
         islandName: islandName,
-        atoll: feature.properties?.atoll || '',
+        atoll: atoll,
         category: feature.properties?.category || ''
     };
     i++;
 }
 
-console.log(`Calculated ${i} Bounding Boxes.`);
+console.log(`Calculated ${i} Bounding Boxes. Skipped ${skipped} features with no island name.`);
+console.log(`Total unique keys: ${Object.keys(boxesMap).length}`);
 
 // Write the much smaller, flat JSON file
 fs.writeFileSync(outputPath, JSON.stringify(boxesMap, null, 2));

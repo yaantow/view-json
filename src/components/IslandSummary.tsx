@@ -37,6 +37,8 @@ interface RBushItem {
     maxX: number;
     maxY: number;
     islandName: string;
+    atoll: string;
+    key: string;
 }
 
 export default function IslandSummary({ data, onNavigateToMap }: IslandSummaryProps) {
@@ -65,12 +67,14 @@ export default function IslandSummary({ data, onNavigateToMap }: IslandSummaryPr
 
                     // Populate the rbush spatial tree for instantaneous lookup
                     const tree = new RBush<RBushItem>();
-                    const items: RBushItem[] = Object.values(boxesMap).map((box: any) => ({
+                    const items: RBushItem[] = Object.entries(boxesMap).map(([key, box]: [string, any]) => ({
                         minX: box.minX,
                         minY: box.minY,
                         maxX: box.maxX,
                         maxY: box.maxY,
-                        islandName: box.islandName
+                        islandName: box.islandName,
+                        atoll: box.atoll || '',
+                        key: key
                     }));
                     tree.load(items);
                     setSpatialIndex(tree);
@@ -117,17 +121,22 @@ export default function IslandSummary({ data, onNavigateToMap }: IslandSummaryPr
             // 2. SLOW PATH: Only run the heavy booleanPointInPolygon math on the 1-2 candidates
             if (candidates.length > 0) {
                 // Find the actual GeoJSON features for these handful of candidates
+                // Match on BOTH islandName AND atoll to handle duplicates
                 const candidateFeatures = islandFeatures.filter(f =>
-                    candidates.some((c: RBushItem) => c.islandName === f.properties?.islandName)
+                    candidates.some((c: RBushItem) =>
+                        c.islandName === f.properties?.islandName &&
+                        c.atoll === (f.properties?.atoll || '')
+                    )
                 );
 
                 for (const feature of candidateFeatures) {
                     try {
                         if (turf.booleanPointInPolygon(pt, feature)) {
                             matchedIslandName = feature.properties?.islandName || 'Unnamed Island';
-                            // Grab meta from our fast dictionary rather than digging in properties
-                            const meta = islandMeta[matchedIslandName];
-                            matchedAtoll = meta?.atoll || feature.properties?.atoll || '';
+                            matchedAtoll = feature.properties?.atoll || '';
+                            // Look up meta using the composite key
+                            const metaKey = matchedAtoll ? `${matchedAtoll}::${matchedIslandName}` : matchedIslandName;
+                            const meta = islandMeta[metaKey];
                             matchedCategory = meta?.category || feature.properties?.category || '';
                             break;
                         }

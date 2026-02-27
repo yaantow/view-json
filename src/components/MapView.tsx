@@ -27,6 +27,8 @@ interface RBushItem {
     maxX: number;
     maxY: number;
     islandName: string;
+    atoll: string;
+    key: string;
 }
 
 import type { CircleLayer, SymbolLayer } from 'mapbox-gl';
@@ -106,12 +108,14 @@ export default function MapView({ data, token, centerCoordinates }: MapViewProps
 
                 if (boxesMap) {
                     const tree = new RBush<RBushItem>();
-                    const items: RBushItem[] = Object.values(boxesMap).map((box: any) => ({
+                    const items: RBushItem[] = Object.entries(boxesMap).map(([key, box]: [string, any]) => ({
                         minX: box.minX,
                         minY: box.minY,
                         maxX: box.maxX,
                         maxY: box.maxY,
-                        islandName: box.islandName
+                        islandName: box.islandName,
+                        atoll: box.atoll || '',
+                        key: key
                     }));
                     tree.load(items);
                     setSpatialIndex(tree);
