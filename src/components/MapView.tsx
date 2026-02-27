@@ -1,12 +1,32 @@
-import { useMemo, useRef, useCallback } from 'react';
+import { useMemo, useRef, useCallback, useState, useEffect } from 'react';
 import Map, { NavigationControl, Source, Layer } from 'react-map-gl/mapbox';
 import type { MapRef } from 'react-map-gl/mapbox';
 import type { GeoJSONSource } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import RBush from 'rbush';
+import * as turf from '@turf/turf';
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Filter } from 'lucide-react';
 
 interface MapViewProps {
     data: any[];
     token: string;
+    centerCoordinates?: { latitude: number, longitude: number } | null;
+}
+
+interface RBushItem {
+    minX: number;
+    minY: number;
+    maxX: number;
+    maxY: number;
+    islandName: string;
 }
 
 import type { CircleLayer, SymbolLayer } from 'mapbox-gl';
@@ -70,15 +90,85 @@ const unclusteredPointLayer: CircleLayer = {
 
 import GeocoderControl from './GeocoderControl';
 
-export default function MapView({ data, token }: MapViewProps) {
-    const mapRef = useRef<MapRef>(null);
+type FilterType = 'all' | 'known' | 'offshore';
 
-    // Filter data points that have valid latitude and longitude
-    const mapData = useMemo(() => {
+export default function MapView({ data, token, centerCoordinates }: MapViewProps) {
+    const mapRef = useRef<MapRef>(null);
+    const [filterType, setFilterType] = useState<FilterType>('all');
+    const [spatialIndex, setSpatialIndex] = useState<RBush<RBushItem> | null>(null);
+
+    // Load spatial index for filtering
+    useEffect(() => {
+        async function loadBoxes() {
+            try {
+                const response = await fetch('/IslandBoxes.json');
+                const boxesMap = await response.json();
+
+                if (boxesMap) {
+                    const tree = new RBush<RBushItem>();
+                    const items: RBushItem[] = Object.values(boxesMap).map((box: any) => ({
+                        minX: box.minX,
+                        minY: box.minY,
+                        maxX: box.maxX,
+                        maxY: box.maxY,
+                        islandName: box.islandName
+                    }));
+                    tree.load(items);
+                    setSpatialIndex(tree);
+                }
+            } catch (e) {
+                console.error("Failed to load IslandBoxes for filtering", e);
+            }
+        }
+        loadBoxes();
+    }, []);
+
+    // Filter valid coordinate data first
+    const baseMapData = useMemo(() => {
         return data.filter(
             (item) => item.latitude && item.longitude && !isNaN(Number(item.latitude)) && !isNaN(Number(item.longitude))
         );
     }, [data]);
+
+    // Apply the Unknown / Offshore filter
+    const mapData = useMemo(() => {
+        if (filterType === 'all' || !spatialIndex) return baseMapData;
+
+        return baseMapData.filter((item) => {
+            const lat = Number(item.latitude);
+            const lng = Number(item.longitude);
+
+            let pt = turf.point([lng, lat]);
+            pt = turf.toMercator(pt);
+
+            const [ptLng, ptLat] = pt.geometry.coordinates;
+            const candidates = spatialIndex.search({
+                minX: ptLng,
+                minY: ptLat,
+                maxX: ptLng,
+                maxY: ptLat
+            });
+
+            // If candidates exist, we assume it's on an island (fast estimation for visuals)
+            const isOffshore = candidates.length === 0;
+
+            if (filterType === 'offshore') return isOffshore;
+            if (filterType === 'known') return !isOffshore;
+            return true;
+        });
+    }, [baseMapData, filterType, spatialIndex]);
+
+    // Fly to new coordinates if passed from external navigation (Eye icon)
+    useEffect(() => {
+        if (centerCoordinates && mapRef.current) {
+            mapRef.current.flyTo({
+                center: [centerCoordinates.longitude, centerCoordinates.latitude],
+                zoom: 14, // Zoom in fairly close to the island
+                duration: 2000,
+                essential: true
+            });
+        }
+    }, [centerCoordinates]);
 
     // Convert to GeoJSON for optimal WebGL rendering
     const geojson = useMemo<GeoJSON.FeatureCollection>(() => {
@@ -101,10 +191,17 @@ export default function MapView({ data, token }: MapViewProps) {
 
     // Calculate initial view state based on the first valid point, or a default
     const initialViewState = useMemo(() => {
-        if (mapData.length > 0) {
+        if (centerCoordinates) {
             return {
-                longitude: Number(mapData[0].longitude),
-                latitude: Number(mapData[0].latitude),
+                longitude: centerCoordinates.longitude,
+                latitude: centerCoordinates.latitude,
+                zoom: 14,
+            };
+        }
+        if (baseMapData.length > 0) {
+            return {
+                longitude: Number(baseMapData[0].longitude),
+                latitude: Number(baseMapData[0].latitude),
                 zoom: 12,
             };
         }
@@ -113,7 +210,7 @@ export default function MapView({ data, token }: MapViewProps) {
             latitude: 4.1755,
             zoom: 10,
         };
-    }, [mapData]);
+    }, [baseMapData, centerCoordinates]);
 
     const onClick = useCallback((event: any) => {
         const feature = event.features?.[0];
@@ -140,7 +237,7 @@ export default function MapView({ data, token }: MapViewProps) {
         }
     }, []);
 
-    if (mapData.length === 0) {
+    if (baseMapData.length === 0) {
         return (
             <div className="flex items-center justify-center p-8 h-full bg-muted/10">
                 <div className="text-center text-muted-foreground">
@@ -153,6 +250,20 @@ export default function MapView({ data, token }: MapViewProps) {
 
     return (
         <div className="w-full h-full min-h-[500px] relative">
+            <div className="absolute top-4 right-14 z-10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 p-1.5 rounded-md shadow-md border flex items-center gap-2">
+                <Filter className="w-4 h-4 text-muted-foreground ml-1" />
+                <Select value={filterType} onValueChange={(val: FilterType) => setFilterType(val)}>
+                    <SelectTrigger className="w-[180px] h-8 text-xs border-0 bg-transparent focus:ring-0 focus:ring-offset-0">
+                        <SelectValue placeholder="Filter items..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="all">Show All Items</SelectItem>
+                        <SelectItem value="known">Only Known Islands</SelectItem>
+                        <SelectItem value="offshore">Only Unknown / Offshore</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+
             <Map
                 ref={mapRef}
                 initialViewState={initialViewState}
@@ -172,7 +283,7 @@ export default function MapView({ data, token }: MapViewProps) {
                     data={geojson}
                     cluster={true}
                     clusterMaxZoom={14}
-                    clusterRadius={30} //50 is okay
+                    clusterRadius={30}
                 >
                     <Layer {...clusterLayer} />
                     <Layer {...clusterCountLayer} />
