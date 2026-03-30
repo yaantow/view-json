@@ -50,24 +50,24 @@ export default function DataTableComponent({ data }: DataTableProps) {
     // To prevent freezing on strictly huge arrays rendering directly to DOM, we truncate the view
     const displayData = filteredData.slice(0, 500);
 
-    const handleExportCsv = () => {
-        if (columns.length === 0 || displayData.length === 0) return;
+    const escapeCsvValue = (value: unknown) => {
+        let normalized = '';
+        if (value !== null && value !== undefined) {
+            normalized = typeof value === 'object' ? JSON.stringify(value) : String(value);
+        }
 
-        const escapeCsvValue = (value: unknown) => {
-            let normalized = '';
-            if (value !== null && value !== undefined) {
-                normalized = typeof value === 'object' ? JSON.stringify(value) : String(value);
-            }
+        if (/[,"\n\r]/.test(normalized)) {
+            return `"${normalized.replace(/"/g, '""')}"`;
+        }
 
-            if (/[,"\n\r]/.test(normalized)) {
-                return `"${normalized.replace(/"/g, '""')}"`;
-            }
+        return normalized;
+    };
 
-            return normalized;
-        };
+    const exportCsvRows = (rows: any[], fileName: string) => {
+        if (columns.length === 0 || rows.length === 0) return;
 
         const headerRow = columns.map(escapeCsvValue).join(',');
-        const dataRows = displayData.map((row) =>
+        const dataRows = rows.map((row) =>
             columns.map((col) => escapeCsvValue(row[col])).join(',')
         );
         const csv = [headerRow, ...dataRows].join('\n');
@@ -76,7 +76,7 @@ export default function DataTableComponent({ data }: DataTableProps) {
         const url = URL.createObjectURL(blob);
         const anchor = document.createElement('a');
         anchor.href = url;
-        anchor.download = 'raw-table-export.csv';
+        anchor.download = fileName;
         document.body.appendChild(anchor);
         anchor.click();
         document.body.removeChild(anchor);
@@ -104,10 +104,19 @@ export default function DataTableComponent({ data }: DataTableProps) {
                         variant="outline"
                         size="sm"
                         className="gap-2"
-                        onClick={handleExportCsv}
+                        onClick={() => exportCsvRows(displayData, 'raw-table-visible-export.csv')}
                         disabled={displayData.length === 0 || columns.length === 0}
                     >
-                        <Download size={14} /> Export CSV
+                        <Download size={14} /> Export Visible CSV
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={() => exportCsvRows(filteredData, 'raw-table-filtered-export.csv')}
+                        disabled={filteredData.length === 0 || columns.length === 0}
+                    >
+                        <Download size={14} /> Export All Filtered CSV
                     </Button>
                 </div>
             </div>
