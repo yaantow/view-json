@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
-import { Search } from 'lucide-react';
+import { Download, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
     Table,
     TableBody,
@@ -49,6 +50,39 @@ export default function DataTableComponent({ data }: DataTableProps) {
     // To prevent freezing on strictly huge arrays rendering directly to DOM, we truncate the view
     const displayData = filteredData.slice(0, 500);
 
+    const handleExportCsv = () => {
+        if (columns.length === 0 || displayData.length === 0) return;
+
+        const escapeCsvValue = (value: unknown) => {
+            let normalized = '';
+            if (value !== null && value !== undefined) {
+                normalized = typeof value === 'object' ? JSON.stringify(value) : String(value);
+            }
+
+            if (/[,"\n\r]/.test(normalized)) {
+                return `"${normalized.replace(/"/g, '""')}"`;
+            }
+
+            return normalized;
+        };
+
+        const headerRow = columns.map(escapeCsvValue).join(',');
+        const dataRows = displayData.map((row) =>
+            columns.map((col) => escapeCsvValue(row[col])).join(',')
+        );
+        const csv = [headerRow, ...dataRows].join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = 'raw-table-export.csv';
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="flex flex-col h-full bg-background">
             <div className="flex items-center justify-between p-4 border-b bg-card gap-4">
@@ -61,9 +95,20 @@ export default function DataTableComponent({ data }: DataTableProps) {
                         className="pl-9 w-full bg-background"
                     />
                 </div>
-                <div className="text-sm text-muted-foreground whitespace-nowrap">
-                    Showing <span className="font-medium text-foreground">{displayData.length}</span> of <span className="font-medium text-foreground">{filteredData.length}</span> rows
-                    {filteredData.length > 500 && " (Limit 500 max rendered)"}
+                <div className="flex items-center gap-3">
+                    <div className="text-sm text-muted-foreground whitespace-nowrap">
+                        Showing <span className="font-medium text-foreground">{displayData.length}</span> of <span className="font-medium text-foreground">{filteredData.length}</span> rows
+                        {filteredData.length > 500 && " (Limit 500 max rendered)"}
+                    </div>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-2"
+                        onClick={handleExportCsv}
+                        disabled={displayData.length === 0 || columns.length === 0}
+                    >
+                        <Download size={14} /> Export CSV
+                    </Button>
                 </div>
             </div>
 
